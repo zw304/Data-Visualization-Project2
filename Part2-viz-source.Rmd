@@ -1,0 +1,64 @@
+---
+title: "part2-viz-source"
+author: "Zehui Wu"
+date: "2/13/2022"
+output: html_document
+---
+
+```{r}
+# read csv: 
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+options(scipen=200000)
+part2<- read.csv('part2-analytical-dataset.csv')
+str(part2)
+```
+
+```{r}
+# start design visualiztion:
+ggplot(data = part2, mapping=aes(x=Year,y=Population,color=Sex))+
+  scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6))+
+  labs(title ="Based on Race & Age, which Gender changes most over the years?", x = "Year", y = "Population(in Million)")+ 
+  geom_point(aes(color=Race))+
+  geom_smooth(aes(x=Year,y=Population,color=Sex))+
+  facet_wrap(~Sex) +
+  facet_wrap(~Race) +
+  facet_wrap(~AGEGRP)+
+  theme_bw()
+                                      
+```
+```{r}
+
+# start design visualiztion:
+head(part2)
+ggplot(data = part2, mapping=aes(x=Year,y=Population,color=Sex~AGRGRP))+
+  scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6))+
+  labs(title ="Based on Race, which Gender changes most over the years?(in Million)", x = "AGEGRP", y = "Population(in Million)")+ 
+  geom_point(aes(color=Race))+
+  geom_smooth(aes(x=Year,y=Population,color=Sex))+
+  facet_wrap(~Race) +
+  theme_bw()
+
+
+```
+
+```{r}
+ggplot(data = part2, mapping=aes(x=Year,y=Population,color=Race))+
+  scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6))+
+  labs(title ="Based on Race, which Gender changes most over the years?(in Million)", x = "Year", y = "Population(in Million)")+ 
+  geom_point(aes(color=Race))+
+  geom_smooth(aes(x=Year,y=Population,color=Race))+
+  facet_wrap(~Sex) +
+  
+  theme_bw()
+#+
+
+
+```
+
+
+
+
+
